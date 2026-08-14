@@ -1,5 +1,8 @@
-export function Footer(){
+import styles from './Footer.module.css'
+
+export function Footer({copy}){
     return(
-        <h2>Footer da página</h2>
+        <p className={styles.footer}>{copy}</p>
     )
 }
+
