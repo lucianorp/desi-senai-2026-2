@@ -1,5 +1,6 @@
 import styles from './Body.module.css'
 import Card from './components/Card'
+import { CardApi } from './components/Card/CardApi'
 
 function Body(){
     const usuarios = [
@@ -15,8 +16,9 @@ function Body(){
             <div className={styles.cardContainer}>
                 
                 {
-                    usuarios.map((usuario)=>(
+                    usuarios.map((usuario, index)=>(
                         <Card
+                            key={index}
                             nome={usuario.nome}
                             idade={usuario.idade}
                             cidade={usuario.cidade}
@@ -24,6 +26,10 @@ function Body(){
                     ))
                 }
             </div>
+
+            <CardApi/>
+
+
         </main>
     )
 }
