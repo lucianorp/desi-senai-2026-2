@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@layer components{
+    .card{
+        background: #EEE;
+        box-shadow: 0 0 5px #333;
+    }
+}

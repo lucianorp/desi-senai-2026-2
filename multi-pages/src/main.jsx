@@ -4,18 +4,37 @@ import './index.css'
 // import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { Home } from './pages/Home';
+import { Sobre } from './pages/Sobre';
+import Main from './layout/Main';
+import { Blog } from './pages/Blog';
+import { AuthProvider } from './context/AuthContext';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <div>Hello World</div>
+    element: <Main />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "sobre", element: <Sobre /> },
+      { path: "blog", element: <Blog /> },
+    ]
   },
+  // {
+  //   path: "/",
+  //   element: <Home/>
+  // },
+  // {
+  //   path: "sobre",
+  //   element: <Sobre/>
+  // },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
     {/* <App /> */}
   </StrictMode>,
 )
