@@ -2,7 +2,8 @@
 
 @layer components{
     .card{
+        width: 250px;
         background: #EEE;
-        box-shadow: 0 0 5px #333;
+        box-shadow: 0 0 5px #AAA;
     }
 }

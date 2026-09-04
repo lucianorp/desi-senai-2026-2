@@ -9,6 +9,7 @@ import { Sobre } from './pages/Sobre';
 import Main from './layout/Main';
 import { Blog } from './pages/Blog';
 import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -19,10 +20,10 @@ const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
     ]
   },
-  // {
-  //   path: "/",
-  //   element: <Home/>
-  // },
+  {
+    path: "login",
+    element: <Login/>
+  },
   // {
   //   path: "sobre",
   //   element: <Sobre/>

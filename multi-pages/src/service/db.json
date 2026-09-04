@@ -1,8 +1,42 @@
 {
   "$schema": "./node_modules/json-server/schema.json",
   "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
+    { 
+     "id": "1",
+     "image":"https://placehold.co/300x200",
+     "title": "Título 01",
+     "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mattis leo id vehicula congue.",
+     "views": 100 
+    },
+    { 
+     "id": "2",
+     "image":"https://placehold.co/300x200",
+     "title": "Título 02",
+     "description":"Quisque tellus est, laoreet a leo vel, sagittis aliquet ipsum. Pellentesque vel feugiat massa.",
+     "views": 100 
+    },
+    { 
+     "id": "3",
+     "image":"https://placehold.co/300x200",
+     "title": "Título 03",
+     "description":"Nullam vehicula massa lectus, tincidunt ullamcorper nisi varius ac.",
+     "views": 100 
+    },
+    { 
+     "id": "4",
+     "image":"https://placehold.co/300x200",
+     "title": "Título 04",
+     "description":"Sed id risus vitae lorem dignissim condimentum vel at sapien. Etiam convallis erat eu varius consectetur.",
+     "views": 100 
+    },
+    { 
+     "id": "5",
+     "image":"https://placehold.co/300x200",
+     "title": "Título 05",
+     "description":"Phasellus scelerisque ac lorem condimentum tincidunt. Donec at velit libero. ",
+     "views": 100 
+    }
+   
   ],
   "comments": [
     { "id": "1", "text": "a comment about post 1", "postId": "1" },
