@@ -10,6 +10,7 @@ import Main from './layout/Main';
 import { Blog } from './pages/Blog';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
+import PostDetail from './pages/Blog/PostDetail';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "sobre", element: <Sobre /> },
       { path: "blog", element: <Blog /> },
+      {path:"post/:id", element:<PostDetail/>}
     ]
   },
   {

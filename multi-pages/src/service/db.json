@@ -46,14 +46,35 @@
     {
       "id":"1",
       "firstName":"João",
+      "lastName":"da Silva",
       "userName":"joao123",
-      "password":"123456"
+      "password":"123456",
+      "endereco":{
+        "rua":"x",
+        "numero":"123"
+        }
     },
-     {
+    {
       "id":"2",
       "firstName":"Maria",
+      "lastName":"da Silva",
       "userName":"maria123",
-      "password":"4545647"
+      "password":"123456",
+      "endereco":{
+        "rua":"x",
+        "numero":"123"
+        }
+    },
+    {
+      "id":"3",
+      "firstName":"José",
+      "lastName":"da Silva",
+      "userName":"jose123",
+      "password":"123456",
+      "endereco":{
+        "rua":"x",
+        "numero":"123"
+        }
     }
   ]
 }
