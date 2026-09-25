@@ -1,17 +1,25 @@
 {
-  "$schema": "./node_modules/json-server/schema.json",
   "users": [
     {
-      "id":1,
-      "email":"joao@email.com",
-      "password":"1234abcd"
-      
+      "id": "1",
+      "email": "joao@email.com",
+      "password": "1234abcd"
     },
     {
-      "id":2,
-      "email":"maria@email.com",
-      "password":"1234abcd"
-      
+      "id": "2",
+      "email": "maria@email.com",
+      "password": "1234abcd"
+    },
+    {
+      "email": "fadfa@fadfa",
+      "password": "abcd1234",
+      "id": "PjiHxZA0L-8"
+    },
+    {
+      "email": "dfadfa@fdfasdfasdf",
+      "password": "abcd1234",
+      "id": "CY29cjC1sFg"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
