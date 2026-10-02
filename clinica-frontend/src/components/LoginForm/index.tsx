@@ -5,6 +5,7 @@ import type { User } from "../../types/user"
 import { toast } from "react-toastify"
 import Modal from "../ui/Modal"
 import RegisterUser from "../RegisterUser"
+import { useAuth } from "../../context/AuthContext"
 
 
 const LoginForm = ()=>{
@@ -16,11 +17,13 @@ const LoginForm = ()=>{
 
     const navigate = useNavigate()
 
-    // useEffect(()=>{
-    //     if(localStorage.getItem("email")){
-    //         navigate("/dashboard")
-    //     }
-    // },[navigate])
+    const {login} = useAuth()
+
+    useEffect(()=>{
+        if(localStorage.getItem("email")){
+            navigate("/dashboard")
+        }
+    },[navigate])
 
 
     const handleLogin = async(
@@ -51,6 +54,8 @@ const LoginForm = ()=>{
             }
 
             localStorage.setItem("email",email)
+
+            login(email)
 
             toast.success("Login realizado com sucesso!",{
                 autoClose:2000
