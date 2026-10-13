@@ -21,5 +21,117 @@
       "id": "CY29cjC1sFg"
     }
   ],
+  "patients": [
+
+    {
+
+      "id": "1",
+
+      "fullName": "João",
+
+      "gender": "Masculino",
+
+      "birthdate": "11/12/1980",
+
+      "cpf": "958.521.251.65",
+
+      "rg": "1215111154",
+
+      "maritalStatus": "Solteiro",
+
+      "phone": "(48)9525-56232",
+
+      "email": "joao@email.com",
+
+      "birthplace": "joao pessoa",
+
+      "emergencyContact": "(48)9525-56232",
+
+      "allergies": "alergia A, alergia B",
+
+      "specialCare": "cuidados",
+
+      "healthInsurance": "convênio X",
+
+      "insuranceNumber": "15155115",
+
+      "insuranceValidity": "15/01/2025",
+
+      "address": {
+
+        "cep": "88052-562",
+
+        "city": "florianopolis",
+
+        "state": "SC",
+
+        "street": "rua x",
+
+        "number": "32",
+
+        "complement": "casa",
+
+        "neighborhood": "centro",
+
+        "reference": "perto de x"
+
+      }
+
+    }
+
+   
+
+  ],
+
+  "consults": [
+
+    {
+
+      "patientId": 2,
+
+      "reason": "Resfriado 2",
+
+      "date": "2023-07-27",
+
+      "time": "15:30",
+
+      "description": "fdfadsfasdf ",
+
+      "medication": "fdf asdf asfdasdf a",
+
+      "dosagePrecautions": "fdaf dfasd a",
+
+      "id": "2"
+
+    }
+
+  ],
+
+  "exams": [
+
+    {
+      "patientId": 2,
+
+      "name": "fdafdsaf",
+
+      "date": "2023-07-12",
+
+      "time": "15:20",
+
+      "type": "fasdfafd",
+
+      "laboratory": "fsdfadsfa",
+
+      "documentUrl": "fdasdfafd.com.br",
+
+      "results": "fdafdasdfad asd",
+
+      "id": "1"
+
+    }
+
+  ],
+
+
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -3,13 +3,13 @@ import { useAuth } from "../../context/AuthContext";
 import SideMenu from "../SideMenu";
 
 
-const DashboardLayout = ()=>{
-    const{user,logout} = useAuth()
+const DashboardLayout = () => {
+    const { user, logout } = useAuth()
 
-    return(
+    return (
         <div className="flex min-h-screen bg-gray-100">
             {/* barra lateral */}
-            <SideMenu/>
+            <SideMenu />
 
             {/* Conteúdo principal */}
             <main className="flex flex-col">
@@ -38,10 +38,10 @@ const DashboardLayout = ()=>{
 
                 </header>
 
-                    {/* aqui entra as páginas do dashboard */}
-                    <section className="flex p-6 overflow-y-auto">
-                        <Outlet/>
-                    </section>
+                {/* aqui entra as páginas do dashboard */}
+                <section className="flex p-6 overflow-y-auto">
+                    <Outlet />
+                </section>
 
             </main>
 

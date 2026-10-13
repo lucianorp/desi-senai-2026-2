@@ -5,30 +5,33 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
 import 'react-toastify/dist/ReactToastify.css'
-import {ToastContainer} from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
 import DashboardLayout from './layouts/DashboardLayout';
 import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login/>
+    element: <Login />
   },
   {
-    element:(
-      <DashboardLayout/>
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
     ),
-    children:[
-      {path:"/dashboard",element:<Dashboard/>}
+    children: [
+      { path: "/dashboard", element: <Dashboard /> }
     ]
   }
 ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ToastContainer/>
+    <ToastContainer />
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
