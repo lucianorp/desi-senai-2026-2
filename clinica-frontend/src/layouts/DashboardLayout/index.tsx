@@ -12,7 +12,7 @@ const DashboardLayout = () => {
             <SideMenu />
 
             {/* Conteúdo principal */}
-            <main className="flex flex-col">
+            <main className="flex flex-1 flex-col">
                 <header className="flex justify-between items-center bg-white p-4 shadow">
                     <h1 className="text-xl font-bold text-cyan-800">
                         Painel do Sistema
@@ -39,7 +39,7 @@ const DashboardLayout = () => {
                 </header>
 
                 {/* aqui entra as páginas do dashboard */}
-                <section className="flex p-6 overflow-y-auto">
+                <section className="flex flex-1 w-full p-6 overflow-y-auto">
                     <Outlet />
                 </section>
 

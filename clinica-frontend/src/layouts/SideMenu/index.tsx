@@ -66,7 +66,7 @@ const SideMenu = () => {
 
             {/* Menu */}
 
-            <nav className="flex p-4 space-y-4 overflow-y-auto">
+            <nav className="flex flex-1 p-4 space-y-4 overflow-y-auto">
                 <ul className="space-y-3">
                     <li>
                         <NavLink

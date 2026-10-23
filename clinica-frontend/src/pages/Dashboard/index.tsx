@@ -1,6 +1,7 @@
 import ConsultsCounter from "../../components/counters/ConsultsCounter"
 import ExamsCounter from "../../components/counters/ExamsCounter"
 import PatientsCounter from "../../components/counters/PatientsCounter"
+import PatientsList from "../../components/PatientList"
 
 const Dashboard = () => {
     return (
@@ -14,6 +15,7 @@ const Dashboard = () => {
                 <ConsultsCounter />
                 <ExamsCounter />
             </div>
+            <PatientsList />
 
         </div>
     )
