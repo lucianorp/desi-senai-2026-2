@@ -12,7 +12,8 @@ import {
 import {
     FaUserPlus,
     FaListAlt,
-    FaCalendarCheck
+    FaCalendarCheck,
+    FaListUl 
 } from "react-icons/fa"
 
 import { useAuth } from "../../context/AuthContext";
@@ -33,7 +34,7 @@ const SideMenu = () => {
     }
 
     return (
-        <aside className={`h-screen bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300
+        <aside className={` bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300
             ${isCollapsed ? "w-16" : "w-64"
             }
         `}>
@@ -81,6 +82,26 @@ const SideMenu = () => {
                             {
                                 !isCollapsed && (
                                     <span>Ínicio</span>
+                                )
+                            }
+
+                        </NavLink>
+                    </li>
+
+
+                    <li>
+                        <NavLink
+                            to="/prontuarios"
+
+                            className={({ isActive }) =>
+
+                                `flex items-center gap-3 ${isActive ? "text-cyan-300" : "text-white"}`
+                            }
+                        >
+                            <FaListUl size={20} />
+                            {
+                                !isCollapsed && (
+                                    <span>Prontuários</span>
                                 )
                             }
 
