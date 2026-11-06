@@ -1,8 +1,243 @@
+import { useState } from "react";
+import type {
+  ChangeEvent,
+  FocusEvent,
+  FormEvent
+} from "react"
+
+import axios from "axios";
+
+import { IMaskInput } from "react-imask";
+
+import { toast } from "react-toastify";
+
+
+//tipagem do endereço
+
+interface Address {
+  cep: string
+
+  city: string
+
+  state: string
+
+  street: string
+
+  number: string
+
+  complement: string
+
+  neighborhood: string
+
+  reference: string
+}
+
+// tipagem dos dados do formulário
+
+interface PatientFormData {
+  fullName: string
+  gender: string
+  birthdate: string
+  cpf: string
+  rg: string
+  maritalStatus: string
+  phone: string
+  email: string
+  birthplace: string
+  emergencyContact: string
+  allergies: string
+  specialCare: string
+  healthInsurance: string
+  insuranceNumber: string
+  insuranceValidity: string
+  address: Address
+}
+
+//tipagem da resposta do ViaCep
+
+interface ViaCepResponse {
+  cep: string
+  localidade?: string
+  uf?: string
+  logradouro?: string
+  complemento?: string
+  bairro?: string
+  erro:boolean
+
+}
+
+
+//função para criar estado inicial do form
+
+const createInitialFormData = (): PatientFormData => ({
+  fullName: "",
+  gender: "",
+  birthdate: "",
+  cpf: "",
+  rg: "",
+  maritalStatus: "",
+  phone: "",
+  email: "",
+  birthplace: "",
+  emergencyContact: "",
+  allergies: "",
+  specialCare: "",
+  healthInsurance: "",
+  insuranceNumber: "",
+  insuranceValidity: "",
+  address: {
+    cep: "",
+    city: "",
+    state: "",
+    street: "",
+    number: "",
+    complement: "",
+    neighborhood: "",
+    reference: "",
+  }
+})
+
+
+
+
 const RegisterFormPatient = () => {
-  
+
+  const [formData, setFormData] = useState<PatientFormData>(createInitialFormData)
+  const [isSaving,setIsSaving]= useState<boolean>(false)
+
+  //atualiza os campos comuns do formulários
+
+  const handleInputChange = (
+    event:ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ):void =>{
+    const {name, value} = event.target
+
+    setFormData((previous) =>({
+      ...previous,
+      [name]:value
+    }))
+  }
+
+
+  //atualiza campos que usam máscara
+
+   const handleMaskedChange = (
+    name:"cpf" | "phone" | "emergencyContact"| "cep",
+    value:string
+  ):void =>{
+    
+    setFormData((previous) =>({
+      ...previous,
+      [name]:value
+    }))
+  }
+
+  //atualiza campos de endereço
+
+   const handleAddressChange = (
+   event:ChangeEvent<HTMLInputElement>
+  ):void =>{
+
+    const {name, value} = event.target
+    
+    setFormData((previous) =>({
+      ...previous,
+      address:{
+        ...previous.address,
+        [name]:value
+      }
+    }))
+  }
+
+  //busca o endereço pelo CEP
+
+  const fetchAddressData = async(
+    cep:string
+  ):Promisse<void>=>{
+
+    try{
+      const response = await axios.get<ViaCepResponse>(
+        `https://viacep.com.br/ws/${cep}/json/`
+      )
+
+      const data = response.data
+
+      if(data.erro){
+        toast.error("Cep não encontrado")
+        return
+      }
+
+      setFormData((previous)=>({
+        ...previous,
+        address:{
+          ...previous.address,
+          cep:data.cep || previous.address.cep,
+          city:data.localidade || "",
+          state:data.uf || "",
+          street:data.logradouro || "",
+          complement: data.complemento || "",
+          neighborhood:data.bairro || ""
+        }
+      }))
+
+    }catch(error){
+      console.error(error)
+      toast.error("Não foi possível consultar o cep")
+    }
+  }
+
+  //trata o dado do cep quando o usuário sai do campo
+
+  const handleCepBlur = (
+    event:FocusEvent<HTMLInputElement>
+  ):void=>{
+    const cep = event.target.value.replace(/\D/g,"")
+
+    if(cep.length === 8){
+      void fetchAddressData(cep)
+    }
+  }
+
+  //Envia o formulário
+
+  const handleSubmit = async(
+    event:FormEvent<HTMLFormElement>
+  ):Promise<void>=>{
+    event.preventDefault()
+    setIsSaving(true)
+
+    try{
+      await axios.post(
+        "http://localhost:3000/patients",
+        formData
+      )
+
+      toast.success("paciente cadastrado com sucesso!",{
+        autoClose:2000,
+        hideProgressBar:true
+      })
+
+      alert("Paciente cadastrado com sucesso")
+
+      setFormData(createInitialFormData)
+
+    }catch(error){
+      console.error("Erro ao salvar os dados", error)
+
+      toast.error("Erro ao salvar os dados",{
+        autoClose:2000,
+        hideProgressBar:true
+      })
+    }
+
+  }
+
+
+
+
   return (
     <form
-      
+
       className="flex-1 space-y-6 text-gray-800"
       autoComplete="off"
     >
@@ -19,7 +254,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="fullName"
             name="fullName"
-           
+
             required
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
@@ -58,7 +293,7 @@ const RegisterFormPatient = () => {
             type="date"
             id="birthdate"
             name="birthdate"
-           
+
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -73,11 +308,11 @@ const RegisterFormPatient = () => {
           </label>
           <input
             id="cpf"
-           
+
             name="cpf"
-           
+
             required
-          
+
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -94,7 +329,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="rg"
             name="rg"
-           
+
             required
             className="w-full border p-2 rounded-lg"
           />
@@ -111,7 +346,7 @@ const RegisterFormPatient = () => {
           <select
             id="maritalStatus"
             name="maritalStatus"
-           
+
             required
             className="w-full border p-2 rounded-lg"
           >
@@ -133,7 +368,7 @@ const RegisterFormPatient = () => {
           </label>
           <input
             id="phone"
-           
+
             name="phone"
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
@@ -149,9 +384,9 @@ const RegisterFormPatient = () => {
           </label>
           <input
             id="emergencyContact"
-           
+
             name="emergencyContact"
-          
+
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -168,7 +403,7 @@ const RegisterFormPatient = () => {
             type="email"
             id="email"
             name="email"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -185,7 +420,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="birthplace"
             name="birthplace"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -202,7 +437,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="allergies"
             name="allergies"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -219,7 +454,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="specialCare"
             name="specialCare"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -236,7 +471,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="healthInsurance"
             name="healthInsurance"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -253,7 +488,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="insuranceNumber"
             name="insuranceNumber"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -270,7 +505,7 @@ const RegisterFormPatient = () => {
             type="date"
             id="insuranceValidity"
             name="insuranceValidity"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -285,11 +520,11 @@ const RegisterFormPatient = () => {
           </label>
           <input
             id="cep"
-           
+
             name="cep"
-           
-            
-            
+
+
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -306,7 +541,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="street"
             name="street"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -323,7 +558,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="number"
             name="number"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -340,7 +575,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="reference"
             name="reference"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -357,7 +592,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="complement"
             name="complement"
-            
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -374,7 +609,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="neighborhood"
             name="neighborhood"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -391,7 +626,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="city"
             name="city"
-            
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -408,7 +643,7 @@ const RegisterFormPatient = () => {
             type="text"
             id="state"
             name="state"
-           
+
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -418,7 +653,7 @@ const RegisterFormPatient = () => {
       <div className="flex justify-end gap-3 pt-4">
         <button
           type="submit"
-          
+
           className="px-4 py-2 bg-cyan-700 text-white rounded-lg hover:bg-cyan-600 disabled:opacity-50"
         >
           Salvar
