@@ -22,274 +22,178 @@
     }
   ],
   "patients": [
-
     {
-
       "id": "1",
-
       "fullName": "João",
-
       "gender": "Masculino",
-
       "birthdate": "11/12/1980",
-
       "cpf": "958.521.251.65",
-
       "rg": "1215111154",
-
       "maritalStatus": "Solteiro",
-
       "phone": "(48) 84521-56232",
-
       "email": "joao@email.com",
-
       "birthplace": "joao pessoa",
-
       "emergencyContact": "(48)9525-56232",
-
       "allergies": "alergia A, alergia B",
-
       "specialCare": "cuidados",
-
       "healthInsurance": "convênio X",
-
       "insuranceNumber": "15155115",
-
       "insuranceValidity": "15/01/2025",
-
       "address": {
-
         "cep": "88052-562",
-
         "city": "florianopolis",
-
         "state": "SC",
-
         "street": "rua x",
-
         "number": "32",
-
         "complement": "casa",
-
         "neighborhood": "centro",
-
         "reference": "perto de x"
-
       }
-
     },
-
     {
-
       "id": "2",
-
       "fullName": "Maria",
-
       "gender": "Feminino",
-
       "birthdate": "11/12/1986",
-
       "cpf": "958.521.251.74",
-
       "rg": "1215111154",
-
       "maritalStatus": "Solteiro",
-
       "phone": "(48)9525-56232",
-
       "email": "maria@email.com",
-
       "birthplace": "São Paulo",
-
       "emergencyContact": "(48)9525-56232",
-
       "allergies": "alergia A, alergia B",
-
       "specialCare": "cuidados",
-
       "healthInsurance": "convênio X",
-
       "insuranceNumber": "15155115",
-
       "insuranceValidity": "15/01/2025",
-
       "address": {
-
         "cep": "88052-562",
-
         "city": "florianopolis",
-
         "state": "SC",
-
         "street": "rua x",
-
         "number": "32",
-
         "complement": "casa",
-
         "neighborhood": "centro",
-
         "reference": "perto de x"
-
       }
-
+    },
+    {
+      "fullName": "Luciano",
+      "gender": "masculino",
+      "birthdate": "1980-11-11",
+      "cpf": "165.165.165-16",
+      "rg": "15111161",
+      "maritalStatus": "solteiro(a)",
+      "phone": "(11) 61651-1161",
+      "email": "dfasdf@fdasdfa",
+      "birthplace": "fasdfasfd",
+      "emergencyContact": "(11) 61165-1165",
+      "allergies": "dsasdfafda",
+      "specialCare": "dsafsdfafd",
+      "healthInsurance": "sdafsdfa",
+      "insuranceNumber": "151515",
+      "insuranceValidity": "2027-04-20",
+      "address": {
+        "cep": "88054-633",
+        "city": "Florianópolis",
+        "state": "SC",
+        "street": "Servidão Manoel Monteiro",
+        "number": "484",
+        "complement": "sfdadsf",
+        "neighborhood": "Canasvieiras",
+        "reference": "fadf"
+      },
+      "id": "JyMOH-aeviE"
     }
-
-   
-
   ],
-
   "consults": [
-
     {
-
       "patientId": 2,
-
       "reason": "Resfriado 2",
-
       "date": "2023-07-27",
-
       "time": "15:30",
-
       "description": "fdfadsfasdf ",
-
       "medication": "fdf asdf asfdasdf a",
-
       "dosagePrecautions": "fdaf dfasd a",
-
       "id": "1"
-
     },
     {
-
       "patientId": 2,
-
       "reason": "Resfriado 3",
-
       "date": "2023-07-27",
-
       "time": "15:30",
-
       "description": "fdfadsfasdf ",
-
       "medication": "fdf asdf asfdasdf a",
-
       "dosagePrecautions": "fdaf dfasd a",
-
       "id": "2"
-
     },
-
     {
-
       "patientId": 1,
-
       "reason": "Resfriado 3",
-
       "date": "2023-07-27",
-
       "time": "15:30",
-
       "description": "fdfadsfasdf ",
-
       "medication": "fdf asdf asfdasdf a",
-
       "dosagePrecautions": "fdaf dfasd a",
-
       "id": "3"
-
+    },
+    {
+      "patientId": "1",
+      "reason": "Dor de cabeça",
+      "date": "2026-11-19",
+      "time": "21:13",
+      "description": "dasfkafl ",
+      "medication": "djfaklsfd",
+      "dosagePrecautions": "kdfakfjd",
+      "id": "hxExqI4zOq4"
     }
-
   ],
-
   "exams": [
-
     {
       "patientId": 2,
-
       "name": "fdafdsaf",
-
       "date": "2023-07-12",
-
       "time": "15:20",
-
       "type": "fasdfafd",
-
       "laboratory": "fsdfadsfa",
-
       "documentUrl": "fdasdfafd.com.br",
-
       "results": "fdafdasdfad asd",
-
       "id": "1"
-
     },
-
     {
       "patientId": 2,
-
       "name": "fdafdsaf",
-
       "date": "2023-07-12",
-
       "time": "15:20",
-
       "type": "fasdfafd",
-
       "laboratory": "fsdfadsfa",
-
       "documentUrl": "fdasdfafd.com.br",
-
       "results": "fdafdasdfad asd",
-
       "id": "2"
-
     },
-
     {
       "patientId": 2,
-
       "name": "fdafdsaf",
-
       "date": "2023-07-12",
-
       "time": "15:20",
-
       "type": "fasdfafd",
-
       "laboratory": "fsdfadsfa",
-
       "documentUrl": "fdasdfafd.com.br",
-
       "results": "fdafdasdfad asd",
-
       "id": "3"
-
     },
-
     {
       "patientId": 1,
-
       "name": "fdafdsaf",
-
       "date": "2023-07-12",
-
       "time": "15:20",
-
       "type": "fasdfafd",
-
       "laboratory": "fsdfadsfa",
-
       "documentUrl": "fdasdfafd.com.br",
-
       "results": "fdafdasdfad asd",
-
       "id": "4"
-
     }
-
   ],
-
-
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -62,7 +62,7 @@ interface ViaCepResponse {
   logradouro?: string
   complemento?: string
   bairro?: string
-  erro:boolean
+  erro: boolean
 
 }
 
@@ -103,84 +103,84 @@ const createInitialFormData = (): PatientFormData => ({
 const RegisterFormPatient = () => {
 
   const [formData, setFormData] = useState<PatientFormData>(createInitialFormData)
-  const [isSaving,setIsSaving]= useState<boolean>(false)
+  const [isSaving, setIsSaving] = useState<boolean>(false)
 
   //atualiza os campos comuns do formulários
 
   const handleInputChange = (
-    event:ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ):void =>{
-    const {name, value} = event.target
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
+    const { name, value } = event.target
 
-    setFormData((previous) =>({
+    setFormData((previous) => ({
       ...previous,
-      [name]:value
+      [name]: value
     }))
   }
 
 
   //atualiza campos que usam máscara
 
-   const handleMaskedChange = (
-    name:"cpf" | "phone" | "emergencyContact"| "cep",
-    value:string
-  ):void =>{
-    
-    setFormData((previous) =>({
+  const handleMaskedChange = (
+    name: "cpf" | "phone" | "emergencyContact" | "cep",
+    value: string
+  ): void => {
+
+    setFormData((previous) => ({
       ...previous,
-      [name]:value
+      [name]: value
     }))
   }
 
   //atualiza campos de endereço
 
-   const handleAddressChange = (
-   event:ChangeEvent<HTMLInputElement>
-  ):void =>{
+  const handleAddressChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
 
-    const {name, value} = event.target
-    
-    setFormData((previous) =>({
+    const { name, value } = event.target
+
+    setFormData((previous) => ({
       ...previous,
-      address:{
+      address: {
         ...previous.address,
-        [name]:value
+        [name]: value
       }
     }))
   }
 
   //busca o endereço pelo CEP
 
-  const fetchAddressData = async(
-    cep:string
-  ):Promisse<void>=>{
+  const fetchAddressData = async (
+    cep: string
+  ): Promise<void> => {
 
-    try{
+    try {
       const response = await axios.get<ViaCepResponse>(
         `https://viacep.com.br/ws/${cep}/json/`
       )
 
       const data = response.data
 
-      if(data.erro){
+      if (data.erro) {
         toast.error("Cep não encontrado")
         return
       }
 
-      setFormData((previous)=>({
+      setFormData((previous) => ({
         ...previous,
-        address:{
+        address: {
           ...previous.address,
-          cep:data.cep || previous.address.cep,
-          city:data.localidade || "",
-          state:data.uf || "",
-          street:data.logradouro || "",
+          cep: data.cep || previous.address.cep,
+          city: data.localidade || "",
+          state: data.uf || "",
+          street: data.logradouro || "",
           complement: data.complemento || "",
-          neighborhood:data.bairro || ""
+          neighborhood: data.bairro || ""
         }
       }))
 
-    }catch(error){
+    } catch (error) {
       console.error(error)
       toast.error("Não foi possível consultar o cep")
     }
@@ -189,44 +189,44 @@ const RegisterFormPatient = () => {
   //trata o dado do cep quando o usuário sai do campo
 
   const handleCepBlur = (
-    event:FocusEvent<HTMLInputElement>
-  ):void=>{
-    const cep = event.target.value.replace(/\D/g,"")
+    event: FocusEvent<HTMLInputElement>
+  ): void => {
+    const cep = event.target.value.replace(/\D/g, "")
 
-    if(cep.length === 8){
+    if (cep.length === 8) {
       void fetchAddressData(cep)
     }
   }
 
   //Envia o formulário
 
-  const handleSubmit = async(
-    event:FormEvent<HTMLFormElement>
-  ):Promise<void>=>{
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault()
     setIsSaving(true)
 
-    try{
+    try {
       await axios.post(
         "http://localhost:3000/patients",
         formData
       )
 
-      toast.success("paciente cadastrado com sucesso!",{
-        autoClose:2000,
-        hideProgressBar:true
+      toast.success("paciente cadastrado com sucesso!", {
+        autoClose: 2000,
+        hideProgressBar: true
       })
 
       alert("Paciente cadastrado com sucesso")
 
       setFormData(createInitialFormData)
 
-    }catch(error){
+    } catch (error) {
       console.error("Erro ao salvar os dados", error)
 
-      toast.error("Erro ao salvar os dados",{
-        autoClose:2000,
-        hideProgressBar:true
+      toast.error("Erro ao salvar os dados", {
+        autoClose: 2000,
+        hideProgressBar: true
       })
     }
 
@@ -236,7 +236,7 @@ const RegisterFormPatient = () => {
 
 
   return (
-    <form
+    <form onSubmit={handleSubmit}
 
       className="flex-1 space-y-6 text-gray-800"
       autoComplete="off"
@@ -254,6 +254,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="fullName"
             name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
 
             required
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
@@ -271,6 +273,8 @@ const RegisterFormPatient = () => {
           <select
             id="gender"
             name="gender"
+            value={formData.gender}
+            onChange={handleInputChange}
             required
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           >
@@ -293,7 +297,8 @@ const RegisterFormPatient = () => {
             type="date"
             id="birthdate"
             name="birthdate"
-
+            value={formData.birthdate}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -306,10 +311,14 @@ const RegisterFormPatient = () => {
           >
             CPF
           </label>
-          <input
+          <IMaskInput
             id="cpf"
-
+            mask="000.000.000-00"
             name="cpf"
+            value={formData.cpf}
+            onAccept={(value) =>
+              handleMaskedChange("cpf", String(value))
+            }
 
             required
 
@@ -329,7 +338,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="rg"
             name="rg"
-
+            value={formData.rg}
+            onChange={handleInputChange}
             required
             className="w-full border p-2 rounded-lg"
           />
@@ -346,7 +356,8 @@ const RegisterFormPatient = () => {
           <select
             id="maritalStatus"
             name="maritalStatus"
-
+            value={formData.maritalStatus}
+            onChange={handleInputChange}
             required
             className="w-full border p-2 rounded-lg"
           >
@@ -366,10 +377,14 @@ const RegisterFormPatient = () => {
           >
             Telefone
           </label>
-          <input
+          <IMaskInput
             id="phone"
-
+            mask="(00) 00000-0000"
             name="phone"
+            value={formData.phone}
+            onAccept={(value) =>
+              handleMaskedChange("phone", String(value))
+            }
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -382,11 +397,14 @@ const RegisterFormPatient = () => {
           >
             Contato de Emergência
           </label>
-          <input
+          <IMaskInput
             id="emergencyContact"
-
+            mask="(00) 00000-0000"
             name="emergencyContact"
-
+            value={formData.emergencyContact}
+            onAccept={(value) =>
+              handleMaskedChange("emergencyContact", String(value))
+            }
             className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-cyan-600 outline-none"
           />
         </div>
@@ -403,7 +421,8 @@ const RegisterFormPatient = () => {
             type="email"
             id="email"
             name="email"
-
+            value={formData.email}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -420,7 +439,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="birthplace"
             name="birthplace"
-
+            value={formData.birthplace}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -437,7 +457,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="allergies"
             name="allergies"
-
+            value={formData.allergies}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -454,7 +475,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="specialCare"
             name="specialCare"
-
+            value={formData.specialCare}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -471,7 +493,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="healthInsurance"
             name="healthInsurance"
-
+            value={formData.healthInsurance}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -488,7 +511,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="insuranceNumber"
             name="insuranceNumber"
-
+            value={formData.insuranceNumber}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -505,7 +529,8 @@ const RegisterFormPatient = () => {
             type="date"
             id="insuranceValidity"
             name="insuranceValidity"
-
+            value={formData.insuranceValidity}
+            onChange={handleInputChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -518,13 +543,21 @@ const RegisterFormPatient = () => {
           >
             CEP
           </label>
-          <input
+          <IMaskInput
             id="cep"
-
+            mask="00000-000"
             name="cep"
-
-
-
+            value={formData.address.cep}
+            onAccept={(value) => {
+              setFormData((previous) => ({
+                ...previous,
+                address: {
+                  ...previous.address,
+                  cep: String(value)
+                }
+              }))
+            }}
+            onBlur={handleCepBlur}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -541,7 +574,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="street"
             name="street"
-
+            value={formData.address.street}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -558,7 +592,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="number"
             name="number"
-
+            value={formData.address.number}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -575,7 +610,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="reference"
             name="reference"
-
+            value={formData.address.reference}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -592,7 +628,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="complement"
             name="complement"
-
+            value={formData.address.complement}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -609,7 +646,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="neighborhood"
             name="neighborhood"
-
+            value={formData.address.neighborhood}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -626,7 +664,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="city"
             name="city"
-
+            value={formData.address.city}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -643,7 +682,8 @@ const RegisterFormPatient = () => {
             type="text"
             id="state"
             name="state"
-
+            value={formData.address.state}
+            onChange={handleAddressChange}
             className="w-full border p-2 rounded-lg"
           />
         </div>
@@ -653,10 +693,10 @@ const RegisterFormPatient = () => {
       <div className="flex justify-end gap-3 pt-4">
         <button
           type="submit"
-
+          disabled={isSaving}
           className="px-4 py-2 bg-cyan-700 text-white rounded-lg hover:bg-cyan-600 disabled:opacity-50"
         >
-          Salvar
+          {isSaving ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </form>

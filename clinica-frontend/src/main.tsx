@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import MedicalRecordList from './components/MedicalRecordList';
 import RegisterFormPatient from './components/RegisterFormPatient';
+import ConsultationForm from './components/ConsultationForm';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/prontuarios", element: <MedicalRecordList /> },
       { path: "/pacientes", element: <RegisterFormPatient /> },
+      { path: "/consultas", element: <ConsultationForm /> },
     ]
   }
 ]);
